@@ -1,6 +1,6 @@
 dotnet publish -c Release  ..\src\AlAinRamadan\AlAinRamadan -r win-x64 -o .\publish
 
-$version = "0.0.4"
+$version = "0.0.5"
 $pack_id = "AlAinRamadan"
 $main_exe = "AlAinRamadan.exe"
 $icon_path = ".\mosque.ico"
