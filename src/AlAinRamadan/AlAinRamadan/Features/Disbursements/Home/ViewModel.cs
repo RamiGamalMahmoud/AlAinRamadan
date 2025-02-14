@@ -64,11 +64,9 @@ namespace AlAinRamadan.Features.Disbursements.Home
         [RelayCommand(CanExecute = nameof(CanPrintTicket))]
         private async Task DirectPrintTicket()
         {
-            // create disbursement ✅
             int familyId = int.Parse(FamilyId);
             Disbursement created = await _disbursementsService.CreateDisbursementAsync(new Disbursement(familyId, TicketNumber, DateTime.Now, Notes));
 
-            // increment ticket number ✅
             if (created is not null)
             {
                 TicketNumber++;
@@ -78,7 +76,6 @@ namespace AlAinRamadan.Features.Disbursements.Home
                 _disbursements.Clear();
             }
 
-            // print ticket
             await _mediator.Send(new Core.Commands.Common.DirectPrintCommand("DisbursementTicket.rdlc", Properties.Settings.Default.RecipePrinter, false, TicketParameters(created)));
         }
 
