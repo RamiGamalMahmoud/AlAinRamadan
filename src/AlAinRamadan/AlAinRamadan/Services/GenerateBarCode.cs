@@ -9,7 +9,7 @@ namespace AlAinRamadan.Services
 {
     public static class GenerateBarCode
     {
-        public static string ToBarCodeString(int code)
+        public static string ToBarCodeString(string code)
         {
             Image img = ToImage(code);
             img.Save("barcode.gif", ImageFormat.Gif);
@@ -17,14 +17,14 @@ namespace AlAinRamadan.Services
             return barcodeImageString;
         }
 
-        public static Image ToImage(int code)
+        public static Image ToImage(string code)
         {
             Barcode b = new Barcode
             {
                 IncludeLabel = true
             };
             return Image
-                .FromStream(b.Encode(BarcodeStandard.Type.Code128, code.ToString(), SKColors.Black, SKColors.White)
+                .FromStream(b.Encode(BarcodeStandard.Type.Code128, code, SKColors.Black, SKColors.White)
                 .Encode()
                 .AsStream());
         }

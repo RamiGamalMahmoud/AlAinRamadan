@@ -29,7 +29,7 @@ namespace AlAinRamadan.ViewModels
         async partial void OnFamilyNameChanged(string oldValue, string newValue)
         {
             Families = await _familiesService.GetFamiliesByNameAsync(newValue);
-            if(newValue == string.Empty)
+            if (newValue == string.Empty)
             {
                 Families = await _familiesService.GetAllFamiliesAsync();
             }
@@ -58,10 +58,11 @@ namespace AlAinRamadan.ViewModels
         [RelayCommand]
         private async Task PrintFamilyBarcode(Family family)
         {
-            string barcodeImageString = Services.GenerateBarCode.ToBarCodeString(family.Id);
+            string barcodeImageString = Services.GenerateBarCode.ToBarCodeString(family.CardNumber);
             Dictionary<string, string> parameters = new Dictionary<string, string>
             {
-                { "Barcode", barcodeImageString }
+                { "Barcode", barcodeImageString },
+                { "FamilyId", family.Id.ToString() }
             };
 
             await _mediator.Send(new Core.Commands.Common.DirectPrintCommand("FamilyBarcode.rdlc", Properties.Settings.Default.LabelPrinter, true, parameters));
