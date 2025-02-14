@@ -1,4 +1,5 @@
 ﻿using AlAinRamadan.Core.Abstraction.Services;
+using AlAinRamadan.Core.Abstraction.ViewModels;
 using AlAinRamadan.Core.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -9,11 +10,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AlAinRamadan.Features.Disbursements.Home
+namespace AlAinRamadan.ViewModels
 {
-    internal partial class ViewModel : ObservableObject
+    internal partial class DisbursementsListingViewModel : ObservableObject, IDisbursementsListingViewModel
     {
-        public ViewModel(IMediator mediator, IDisbursementsService disbursementsService)
+        public DisbursementsListingViewModel(IMediator mediator, IDisbursementsService disbursementsService)
         {
             _mediator = mediator;
             _disbursementsService = disbursementsService;
@@ -121,11 +122,5 @@ namespace AlAinRamadan.Features.Disbursements.Home
 
         private readonly IMediator _mediator;
         private readonly IDisbursementsService _disbursementsService;
-    }
-
-    enum InputType
-    {
-        CardNumber,
-        FamilyId
     }
 }

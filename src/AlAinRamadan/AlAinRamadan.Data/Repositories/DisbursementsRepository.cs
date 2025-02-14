@@ -1,18 +1,13 @@
 ﻿using AlAinRamadan.Core.Abstraction.Repositories;
 using AlAinRamadan.Core.Models;
-using AlAinRamadan.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace AlAinRamadan.Features.Disbursements
+namespace AlAinRamadan.Data.Repositories
 {
-    internal class Repository : IDisbursementsRepository
+    internal class DisbursementsRepository : IDisbursementsRepository
     {
-        public Repository(AppDbContextFactory dbContextFactory)
+        public DisbursementsRepository(AppDbContextFactory dbContextFactory)
         {
             _dbContextFactory = dbContextFactory;
         }
@@ -21,7 +16,10 @@ namespace AlAinRamadan.Features.Disbursements
         {
             using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
-                return await dbContext.Disbursements.MaxAsync(d => (int?)d.TicketNumber) ?? 0;
+                return await dbContext
+                    .Disbursements
+                    .Where(d => d.DateCreated.Date == date.Date)
+                    .MaxAsync(d => (int?)d.TicketNumber) ?? 0;
             }
         }
 

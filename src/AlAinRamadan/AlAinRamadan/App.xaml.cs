@@ -1,5 +1,6 @@
 ﻿using AlAinRamadan.Core;
 using AlAinRamadan.Core.Abstraction;
+using AlAinRamadan.Core.Abstraction.Views;
 using AlAinRamadan.Data;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,10 @@ namespace AlAinRamadan
         public App()
         {
             Velopack.VelopackApp.Build().Run();
-            _services = new ServiceCollection().ConfigureServices().BuildServiceProvider();
+            _services = new ServiceCollection()
+                .ConfigureServices()
+                .ConfigureData()
+                .BuildServiceProvider();
 
             WeakReferenceMessenger.Default.Register<Core.Messages.Common.ShowNotificationMessage>(this, (r, m) => ShowNotification(m.AppNitification));
         }
@@ -38,7 +42,7 @@ namespace AlAinRamadan
                 }
             }
 
-            MainWindow = _services.GetRequiredService<Core.Abstraction.Home.IHomeView>() as Window;
+            MainWindow = _services.GetRequiredService<IHomeView>() as Window;
             MainWindow.Show();
             WeakReferenceMessenger.Default.Send(new Core.Messages.Common.ShowNotificationMessage(new AppNitification("App Started")));
             base.OnStartup(e);

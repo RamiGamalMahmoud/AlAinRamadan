@@ -1,4 +1,5 @@
 ﻿using AlAinRamadan.Core.Abstraction.Services;
+using AlAinRamadan.Core.Abstraction.ViewModels;
 using AlAinRamadan.Core.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -6,11 +7,11 @@ using MediatR;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace AlAinRamadan.Features.FamiliesManagement.Home
+namespace AlAinRamadan.ViewModels
 {
-    internal partial class ViewModel : ObservableObject
+    internal partial class FamiliesListingViewModel : ObservableObject, IFamiliesListingViewModel
     {
-        public ViewModel(IMediator mediator, IFamiliesService familiesService)
+        public FamiliesListingViewModel(IMediator mediator, IFamiliesService familiesService)
         {
             _mediator = mediator;
             _familiesService = familiesService;

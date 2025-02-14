@@ -1,11 +1,12 @@
-﻿using AlAinRamadan.Core.Abstraction.Families;
+﻿using AlAinRamadan.Core.Abstraction.ViewModels;
+using AlAinRamadan.Core.Abstraction.Views;
 using System.Windows.Controls;
 
-namespace AlAinRamadan.Features.FamiliesManagement.Home
+namespace AlAinRamadan.Views
 {
-    internal partial class View : UserControl, IFamiliesHomeView
+    internal partial class FamiliesListingView : UserControl, IFamiliesListingView
     {
-        public View(ViewModel viewModel)
+        public FamiliesListingView(IFamiliesListingViewModel viewModel)
         {
             InitializeComponent();
             DataContext = viewModel;
@@ -16,7 +17,7 @@ namespace AlAinRamadan.Features.FamiliesManagement.Home
         {
             if (!_isLoaded)
             {
-                await Dispatcher.Invoke(() => (DataContext as ViewModel).LoadCommand.ExecuteAsync(null));
+                await Dispatcher.Invoke(() => (DataContext as IFamiliesListingViewModel).LoadAsync());
                 _isLoaded = true;
             }
         }

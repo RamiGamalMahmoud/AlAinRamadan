@@ -1,5 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using AlAinRamadan.Core.Abstraction.ViewModels;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,17 +9,17 @@ using System.ComponentModel;
 using System.Drawing.Printing;
 using System.Linq;
 
-namespace AlAinRamadan.Features.Home
+namespace AlAinRamadan.ViewModels
 {
-    internal partial class ViewModel : ObservableObject
+    internal partial class MainViewModel : ObservableObject, IMainViewModel
     {
-        public ViewModel(IServiceProvider services)
+        public MainViewModel(IServiceProvider services)
         {
             _services = services;
             ViewItems = new ObservableCollection<ViewItem>()
             {
-                new ViewItem("العائلات", typeof(Core.Abstraction.Families.IFamiliesHomeView)),
-                new ViewItem("الصرف", typeof(Core.Abstraction.Disbursements.IDisbursementsHomeView)),
+                new ViewItem("العائلات", typeof(Core.Abstraction.Views.IFamiliesListingView)),
+                new ViewItem("الصرف", typeof(Core.Abstraction.Views.IDisbursementsListingView)),
             };
 
             Printers = PrinterSettings.InstalledPrinters.Cast<string>().ToList<string>();
@@ -49,7 +51,14 @@ namespace AlAinRamadan.Features.Home
 
         partial void OnSelectedViewItemChanged(ViewItem oldValue, ViewItem newValue)
         {
-            CurrentView = _services.GetService(newValue.Type);
+            try
+            {
+                CurrentView = _services.GetRequiredService(newValue.Type);
+            }
+            catch (InvalidOperationException ex)
+            {
+                WeakReferenceMessenger.Default.Send(new Core.Messages.Common.ShowNotificationMessage(new Core.ErrorNotification(ex.Message)));
+            }
         }
 
         partial void OnCurrentViewChanged(object oldValue, object newValue)

@@ -1,12 +1,13 @@
-﻿using AlAinRamadan.Core.Abstraction.Disbursements;
+﻿using AlAinRamadan.Core.Abstraction.ViewModels;
+using AlAinRamadan.Core.Abstraction.Views;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
-namespace AlAinRamadan.Features.Disbursements.Home
+namespace AlAinRamadan.Views
 {
-    internal partial class View : UserControl, IDisbursementsHomeView
+    internal partial class DisbursementsListingView : UserControl, IDisbursementsListingView
     {
-        public View(ViewModel viewModel)
+        public DisbursementsListingView(IDisbursementsListingViewModel viewModel)
         {
             InitializeComponent();
             DataContext = viewModel;
@@ -17,12 +18,12 @@ namespace AlAinRamadan.Features.Disbursements.Home
 
         private void TextBoxCardNumber_GotFocus(object sender, System.Windows.RoutedEventArgs e)
         {
-            (DataContext as ViewModel).InputType = InputType.CardNumber;
+            (DataContext as IDisbursementsListingViewModel).InputType = InputType.CardNumber;
         }
 
         private void TextBoxFamilyId_GotFocus(object sender, System.Windows.RoutedEventArgs e)
         {
-            (DataContext as ViewModel).InputType = InputType.FamilyId;
+            (DataContext as IDisbursementsListingViewModel).InputType = InputType.FamilyId;
         }
 
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)

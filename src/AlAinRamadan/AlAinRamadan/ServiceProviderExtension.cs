@@ -18,23 +18,19 @@ namespace AlAinRamadan
             services.AddSingleton<AppDbContextFactory>();
             services.AddSingleton<Core.Abstraction.IDirectoriesService, Services.DirectoriesService>();
 
-            services.AddSingleton<Features.Home.ViewModel>();
-            services.AddSingleton<Core.Abstraction.Home.IHomeView, Features.Home.View>();
+            services.AddSingleton<Core.Abstraction.ViewModels.IMainViewModel, ViewModels.MainViewModel>();
+            services.AddSingleton<Core.Abstraction.Views.IHomeView, Views.MainView>();
 
             #region Families Management
-            services.AddSingleton<Features.FamiliesManagement.Repository>();
-            services.AddSingleton<Features.FamiliesManagement.Home.ViewModel>();
-            services.AddSingleton<Core.Abstraction.Families.IFamiliesHomeView, Features.FamiliesManagement.Home.View>();
+            services.AddSingleton<Core.Abstraction.ViewModels.IFamiliesListingViewModel, ViewModels.FamiliesListingViewModel>();
+            services.AddSingleton<Core.Abstraction.Views.IFamiliesListingView, Views.FamiliesListingView>();
             services.AddSingleton<Core.Abstraction.Services.IFamiliesService, Services.FamiliesService>();
-            services.AddSingleton<Core.Abstraction.Repositories.IFamiliesRepository, Features.FamiliesManagement.Repository>();
             #endregion
 
 
             #region Disbursements Management
-            services.AddSingleton<Features.Disbursements.Repository>();
-            services.AddSingleton<Features.Disbursements.Home.ViewModel>();
-            services.AddSingleton<Core.Abstraction.Disbursements.IDisbursementsHomeView, Features.Disbursements.Home.View>();
-            services.AddSingleton<Core.Abstraction.Repositories.IDisbursementsRepository, Features.Disbursements.Repository>();
+            services.AddSingleton<Core.Abstraction.ViewModels.IDisbursementsListingViewModel, ViewModels.DisbursementsListingViewModel>();
+            services.AddSingleton<Core.Abstraction.Views.IDisbursementsListingView, Views.DisbursementsListingView>();
             services.AddSingleton<Core.Abstraction.Services.IDisbursementsService, Services.DisbursementsService>();
             #endregion
 

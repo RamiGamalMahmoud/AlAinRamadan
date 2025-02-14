@@ -2,17 +2,13 @@
 using AlAinRamadan.Core.Abstraction.Repositories;
 using AlAinRamadan.Core.DTOs;
 using AlAinRamadan.Core.Models;
-using AlAinRamadan.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace AlAinRamadan.Features.FamiliesManagement
+namespace AlAinRamadan.Data.Repositories
 {
-    internal class Repository : RepositoryBase<Family>, IFamiliesRepository
+    internal class FamiliesRepository : RepositoryBase<Family>, IFamiliesRepository
     {
-        public Repository(AppDbContextFactory dbContextFactory)
+        public FamiliesRepository(AppDbContextFactory dbContextFactory)
         {
             _dbContextFactory = dbContextFactory;
         }
