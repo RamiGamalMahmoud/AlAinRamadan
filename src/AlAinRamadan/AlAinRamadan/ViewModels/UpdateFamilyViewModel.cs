@@ -1,12 +1,13 @@
 ﻿using AlAinRamadan.Core.Abstraction.Services;
+using AlAinRamadan.Core.Abstraction.ViewModels;
 using AlAinRamadan.Core.DTOs;
 using AlAinRamadan.Core.Models;
 using MediatR;
 using System.Threading.Tasks;
 
-namespace AlAinRamadan.Features.FamiliesManagement.Editor
+namespace AlAinRamadan.ViewModels
 {
-    internal partial class UpdateFamilyViewModel : FamilyEditorViewModel
+    internal partial class UpdateFamilyViewModel : FamilyEditorViewModel, IUpdateFamilyViewModel
     {
         public UpdateFamilyViewModel(Family family, IFamiliesService familiesService) : base(familiesService)
         {

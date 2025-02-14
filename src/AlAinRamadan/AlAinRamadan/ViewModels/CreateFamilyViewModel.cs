@@ -1,10 +1,11 @@
 ﻿using AlAinRamadan.Core.Abstraction.Services;
+using AlAinRamadan.Core.Abstraction.ViewModels;
 using AlAinRamadan.Core.DTOs;
 using System.Threading.Tasks;
 
-namespace AlAinRamadan.Features.FamiliesManagement.Editor
+namespace AlAinRamadan.ViewModels
 {
-    internal class CreateFamilyViewModel : FamilyEditorViewModel
+    internal class CreateFamilyViewModel : FamilyEditorViewModel, ICreateFamilyViewModel
     {
         public CreateFamilyViewModel(IFamiliesService familiesService) : base(familiesService)
         {

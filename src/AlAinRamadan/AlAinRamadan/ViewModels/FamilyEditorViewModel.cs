@@ -1,14 +1,15 @@
 ﻿using AlAinRamadan.Core;
 using AlAinRamadan.Core.Abstraction.Services;
+using AlAinRamadan.Core.Abstraction.ViewModels;
 using AlAinRamadan.Core.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace AlAinRamadan.Features.FamiliesManagement.Editor
+namespace AlAinRamadan.ViewModels
 {
-    internal abstract partial class FamilyEditorViewModel : EditorViewModelBase
+    internal abstract partial class FamilyEditorViewModel : EditorViewModelBase, IFamilyEditoViewModel
     {
         public FamilyEditorViewModel(IFamiliesService familiesService) : base()
         {
