@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AlAinRamadan.Features.FamiliesManagement.Editor
 {
-    internal partial class ViewModelUpdate : ViewModel
+    internal partial class UpdateFamilyViewModel : FamilyEditorViewModel
     {
-        public ViewModelUpdate(Family family, IFamiliesService familiesService) : base(familiesService)
+        public UpdateFamilyViewModel(Family family, IFamiliesService familiesService) : base(familiesService)
         {
             _family = family;
             CardNumber = family.CardNumber;

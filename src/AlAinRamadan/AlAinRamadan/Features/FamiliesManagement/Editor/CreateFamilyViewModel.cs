@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace AlAinRamadan.Features.FamiliesManagement.Editor
 {
-    internal class ViewModelCreate : ViewModel
+    internal class CreateFamilyViewModel : FamilyEditorViewModel
     {
-        public ViewModelCreate(IFamiliesService familiesService) : base(familiesService)
+        public CreateFamilyViewModel(IFamiliesService familiesService) : base(familiesService)
         {
             EnableCheckInputs();
         }

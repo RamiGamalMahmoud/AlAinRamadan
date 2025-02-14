@@ -2,9 +2,9 @@
 
 namespace AlAinRamadan.Features.FamiliesManagement.Editor
 {
-    internal partial class View : Window
+    internal partial class FamilyEditorView : Window
     {
-        public View(ViewModel viewModel)
+        public FamilyEditorView(FamilyEditorViewModel viewModel)
         {
             InitializeComponent();
             DataContext = viewModel;

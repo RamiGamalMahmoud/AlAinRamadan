@@ -14,8 +14,8 @@ namespace AlAinRamadan.Features.FamiliesManagement.CommandHandlers
         public Task Handle(Common.ShowEditCommand<Family> request, CancellationToken cancellationToken)
         {
             IFamiliesService familiesService = services.GetRequiredService<IFamiliesService>();
-            Editor.ViewModelUpdate viewModel = new Editor.ViewModelUpdate(request.Model, familiesService);
-            Editor.View view = new Editor.View(viewModel);
+            Editor.UpdateFamilyViewModel viewModel = new Editor.UpdateFamilyViewModel(request.Model, familiesService);
+            Editor.FamilyEditorView view = new Editor.FamilyEditorView(viewModel);
             view.ShowDialog();
             return Task.CompletedTask;
         }

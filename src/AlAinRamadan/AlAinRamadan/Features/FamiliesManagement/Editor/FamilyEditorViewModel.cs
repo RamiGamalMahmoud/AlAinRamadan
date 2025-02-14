@@ -8,9 +8,9 @@ using System.Linq;
 
 namespace AlAinRamadan.Features.FamiliesManagement.Editor
 {
-    internal abstract partial class ViewModel : EditorViewModelBase
+    internal abstract partial class FamilyEditorViewModel : EditorViewModelBase
     {
-        public ViewModel(IFamiliesService familiesService) : base()
+        public FamilyEditorViewModel(IFamiliesService familiesService) : base()
         {
             _familiesService = familiesService;
         }
