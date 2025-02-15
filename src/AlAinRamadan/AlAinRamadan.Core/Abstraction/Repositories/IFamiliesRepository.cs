@@ -16,5 +16,8 @@ namespace AlAinRamadan.Core.Abstraction.Repositories
         Task<Family> GetFamilyByIdAsync(int id);
         Task<int> GetTotalFamiliesAsync();
         Task<bool> UpdateAsync(FamilyDTO dTO);
+        Task DeleteAsync(int id);
+        Task RestoreAsync(int id);
+        Task<IEnumerable<Family>> GetDeletedFamiliesAsync();
     }
 }

@@ -40,6 +40,7 @@ namespace AlAinRamadan.Data.Repositories
                     IEnumerable<Family> families = await dbContext
                         .Families
                         .OrderBy(f => f.Name)
+                        .Where(f => f.IsDeleted != true)
                         .ToListAsync();
                     SetModels(families);
                 }
@@ -71,7 +72,10 @@ namespace AlAinRamadan.Data.Repositories
         {
             using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
-                return await dbContext.Families.Where(f => f.Name.Contains(name) && !string.IsNullOrEmpty(name)).ToListAsync();
+                return await dbContext
+                    .Families
+                    .Where(f => f.Name.Contains(name) && !string.IsNullOrEmpty(name) && (bool)f.IsDeleted)
+                    .ToListAsync();
             }
         }
 
@@ -79,7 +83,10 @@ namespace AlAinRamadan.Data.Repositories
         {
             using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
-                return await dbContext.Families.Where(f => f.CardNumber == cardNumber && !string.IsNullOrEmpty(cardNumber)).ToListAsync();
+                return await dbContext
+                    .Families
+                    .Where(f => f.CardNumber == cardNumber && !string.IsNullOrEmpty(cardNumber) && f.IsDeleted != true)
+                    .ToListAsync();
             }
         }
 
@@ -87,7 +94,10 @@ namespace AlAinRamadan.Data.Repositories
         {
             using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
-                return await dbContext.Families.Where(f => f.CardNumber.Contains(cardNumber) && !string.IsNullOrEmpty(cardNumber)).ToListAsync();
+                return await dbContext
+                    .Families
+                    .Where(f => f.CardNumber.Contains(cardNumber) && !string.IsNullOrEmpty(cardNumber) && f.IsDeleted != true)
+                    .ToListAsync();
             }
         }
 
@@ -95,7 +105,10 @@ namespace AlAinRamadan.Data.Repositories
         {
             using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
-                return await dbContext.Families.FindAsync(id);
+                return await dbContext
+                    .Families
+                    .Where(f => f.IsDeleted != true && f.Id == id)
+                    .FirstOrDefaultAsync();
             }
         }
 
@@ -103,7 +116,10 @@ namespace AlAinRamadan.Data.Repositories
         {
             using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
-                return dbContext.Families.FirstOrDefaultAsync(f => f.CardNumber == cardNumber);
+                return dbContext
+                    .Families
+                    .Where(f => f.IsDeleted != true)
+                    .FirstOrDefaultAsync(f => f.CardNumber == cardNumber);
             }
         }
 
@@ -111,7 +127,43 @@ namespace AlAinRamadan.Data.Repositories
         {
             using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
-                return await dbContext.Families.CountAsync();
+                return await dbContext
+                    .Families
+                    .Where(f => f.IsDeleted != true)
+                    .CountAsync();
+            }
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
+            {
+                Family family = dbContext.Families.Find(id);
+                family.IsDeleted = true;
+                dbContext.Families.Update(family);
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
+        public async Task RestoreAsync(int id)
+        {
+            using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
+            {
+                Family family = dbContext.Families.Find(id);
+                family.IsDeleted = false;
+                dbContext.Families.Update(family);
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
+        public async Task<IEnumerable<Family>> GetDeletedFamiliesAsync()
+        {
+            using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
+            {
+                return await dbContext
+                    .Families
+                    .Where(f => f.IsDeleted == true)
+                    .ToListAsync();
             }
         }
 
