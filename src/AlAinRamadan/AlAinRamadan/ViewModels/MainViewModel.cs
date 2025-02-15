@@ -25,7 +25,7 @@ namespace AlAinRamadan.ViewModels
             Printers = PrinterSettings.InstalledPrinters.Cast<string>().ToList<string>();
         }
 
-        public string Version => "0.0.8" ;
+        public string Version => "0.1.2" ;
 
         [ObservableProperty]
         private IEnumerable<string> _printers;
