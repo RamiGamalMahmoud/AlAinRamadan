@@ -1,4 +1,4 @@
-﻿using AlAinRamadan.Core.Abstraction.Services;
+﻿using AlAinRamadan.Core.Abstraction.Repositories;
 using AlAinRamadan.Core.Abstraction.ViewModels;
 using AlAinRamadan.Core.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -11,10 +11,10 @@ namespace AlAinRamadan.ViewModels
 {
     internal partial class FamiliesListingViewModel : ObservableObject, IFamiliesListingViewModel
     {
-        public FamiliesListingViewModel(IMediator mediator, IFamiliesService familiesService)
+        public FamiliesListingViewModel(IMediator mediator, IFamiliesRepository familiesRepository)
         {
             _mediator = mediator;
-            _familiesService = familiesService;
+            _familiesRepository = familiesRepository;
         }
 
         [ObservableProperty]
@@ -28,25 +28,25 @@ namespace AlAinRamadan.ViewModels
 
         async partial void OnFamilyNameChanged(string oldValue, string newValue)
         {
-            Families = await _familiesService.GetFamiliesByNameAsync(newValue);
+            Families = await _familiesRepository.GetFamiliesByNameAsync(newValue);
             if (newValue == string.Empty)
             {
-                Families = await _familiesService.GetAllFamiliesAsync();
+                Families = await _familiesRepository.GetAllFamiliesAsync();
             }
         }
 
         [RelayCommand]
         public async Task LoadAsync()
         {
-            Families = await _familiesService.GetAllFamiliesAsync();
-            TotalFamilies = await _familiesService.GetTotalFamiliesAsync();
+            Families = await _familiesRepository.GetAllFamiliesAsync();
+            TotalFamilies = await _familiesRepository.GetTotalFamiliesAsync();
         }
 
         [RelayCommand]
         private async Task AddFamily()
         {
             await _mediator.Send(new Core.Commands.Common.ShowCreateCommand<Family>());
-            TotalFamilies = await _familiesService.GetTotalFamiliesAsync();
+            TotalFamilies = await _familiesRepository.GetTotalFamiliesAsync();
         }
 
         [RelayCommand]
@@ -77,7 +77,15 @@ namespace AlAinRamadan.ViewModels
             }
         }
 
+        [RelayCommand]
+        private async Task DeleteFamily(Family family)
+        {
+            await _familiesRepository.DeleteAsync(family.Id);
+            Families = await _familiesRepository.GetAllFamiliesAsync();
+            TotalFamilies = await _familiesRepository.GetTotalFamiliesAsync();
+        }
+
         private readonly IMediator _mediator;
-        private readonly IFamiliesService _familiesService;
+        private readonly IFamiliesRepository _familiesRepository;
     }
 }

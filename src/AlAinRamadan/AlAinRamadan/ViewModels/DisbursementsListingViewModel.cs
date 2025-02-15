@@ -1,4 +1,4 @@
-﻿using AlAinRamadan.Core.Abstraction.Services;
+﻿using AlAinRamadan.Core.Abstraction.Repositories;
 using AlAinRamadan.Core.Abstraction.ViewModels;
 using AlAinRamadan.Core.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -14,15 +14,16 @@ namespace AlAinRamadan.ViewModels
 {
     internal partial class DisbursementsListingViewModel : ObservableObject, IDisbursementsListingViewModel
     {
-        public DisbursementsListingViewModel(IMediator mediator, IDisbursementsService disbursementsService)
+        public DisbursementsListingViewModel(IMediator mediator, IDisbursementsRepository disbursementsRepository, IFamiliesRepository familiesRepository)
         {
             _mediator = mediator;
-            _disbursementsService = disbursementsService;
+            _disbursementsRepository = disbursementsRepository;
+            _familiesRepository = familiesRepository;
         }
 
         public async Task LoadAsync()
         {
-            TicketNumber = await _disbursementsService.GetTicketNumberAsync() + 1;
+            TicketNumber = await _disbursementsRepository.GetLastTicketNumberAsync(DateTime.Now) + 1;
         }
 
         async partial void OnCardNumberChanged(string oldValue, string newValue)
@@ -31,8 +32,8 @@ namespace AlAinRamadan.ViewModels
             {
                 return;
             }
-            Families = await _disbursementsService.GetFamiliesByPartOfCardNumberAsync(newValue);
-            Family = await _disbursementsService.GetFamilyByCardNumberAsync(newValue);
+            Families = await _familiesRepository.GetFamiliesByPartOfCardNumberAsync(newValue);
+            Family = await _familiesRepository.GetFamilyByCardNumberAsync(newValue);
             FamilyId = Family?.Id.ToString();
         }
 
@@ -43,7 +44,8 @@ namespace AlAinRamadan.ViewModels
                 return;
             }
             int.TryParse(newValue, out int result);
-            Family = await _disbursementsService.GetFamilyByIdAsync(result);
+            Families = [];
+            Family = await _familiesRepository.GetFamilyByIdAsync(result);
             CardNumber = Family?.CardNumber;
         }
 
@@ -51,9 +53,14 @@ namespace AlAinRamadan.ViewModels
         {
             _disbursements.Clear();
             LastDisbursement = null;
+            if(InputType == InputType.Family && newValue is not null)
+            {
+                CardNumber = newValue.CardNumber;
+                FamilyId = newValue.Id.ToString();
+            }
             if (newValue is not null)
             {
-                var disbursements = await _disbursementsService.GetFamilyDisbursementsAsync(newValue.Id);
+                var disbursements = await _disbursementsRepository.GetFamilyDisbursementsAsync(newValue.Id);
                 LastDisbursement = disbursements.FirstOrDefault();
                 foreach (Disbursement disbursement in disbursements)
                 {
@@ -71,7 +78,7 @@ namespace AlAinRamadan.ViewModels
         private async Task DirectPrintTicket()
         {
             int familyId = int.Parse(FamilyId);
-            Disbursement created = await _disbursementsService.CreateDisbursementAsync(new Disbursement(familyId, TicketNumber, DateTime.Now, Notes));
+            Disbursement created = await _disbursementsRepository.CreateAsync(new Disbursement(familyId, TicketNumber, DateTime.Now, Notes));
 
             if (created is not null)
             {
@@ -83,6 +90,13 @@ namespace AlAinRamadan.ViewModels
             }
 
             await _mediator.Send(new Core.Commands.Common.DirectPrintCommand("DisbursementTicket.rdlc", Properties.Settings.Default.RecipePrinter, false, TicketParameters(created)));
+        }
+
+        [RelayCommand]
+        private async Task DeleteDisbursement(Disbursement disbursement)
+        {
+            await _disbursementsRepository.DeleteAsync(disbursement.Id);
+            _disbursements.Remove(disbursement);
         }
 
         private bool CanPrintTicket() => Family is not null;
@@ -139,6 +153,7 @@ namespace AlAinRamadan.ViewModels
         private readonly ObservableCollection<Disbursement> _disbursements = new ObservableCollection<Disbursement>();
 
         private readonly IMediator _mediator;
-        private readonly IDisbursementsService _disbursementsService;
+        private readonly IDisbursementsRepository _disbursementsRepository;
+        private readonly IFamiliesRepository _familiesRepository;
     }
 }

@@ -1,5 +1,5 @@
 ﻿using AlAinRamadan.Core;
-using AlAinRamadan.Core.Abstraction.Services;
+using AlAinRamadan.Core.Abstraction.Repositories;
 using AlAinRamadan.Core.Abstraction.ViewModels;
 using AlAinRamadan.Core.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -11,9 +11,9 @@ namespace AlAinRamadan.ViewModels
 {
     internal abstract partial class FamilyEditorViewModel : EditorViewModelBase, IFamilyEditoViewModel
     {
-        public FamilyEditorViewModel(IFamiliesService familiesService) : base()
+        public FamilyEditorViewModel(IFamiliesRepository familiesRepository) : base()
         {
-            _familiesService = familiesService;
+            _familiesRepository = familiesRepository;
         }
 
         [ObservableProperty]
@@ -28,20 +28,20 @@ namespace AlAinRamadan.ViewModels
         [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
         private string _name;
         
-        protected readonly IFamiliesService _familiesService;
+        protected readonly IFamiliesRepository _familiesRepository;
 
         async partial void OnNameChanged(string oldValue, string newValue)
         {
             if (_isCheckInputsEnabled)
             {
-                FoundFamiliesByName = await _familiesService.GetFamiliesByNameAsync(newValue);
+                FoundFamiliesByName = await _familiesRepository.GetFamiliesByNameAsync(newValue);
                 HasFoundFamiliesByName = FoundFamiliesByName.Any();
             }
         }
 
         async partial void OnCardNumberChanged(string oldValue, string newValue)
         {
-            FoundFamiliesByName = await _familiesService.GetFamiliesByPartOfCardNumberAsync(newValue);
+            FoundFamiliesByName = await _familiesRepository.GetFamiliesByPartOfCardNumberAsync(newValue);
             if (_isCheckInputsEnabled) HasFoundFamiliesByCardNumber = FoundFamiliesByName.Select(x => x.CardNumber).Contains(newValue);
         }
 
