@@ -26,14 +26,13 @@ namespace AlAinRamadan
             services.AddSingleton<Core.Abstraction.Contexts.IFamilyContext, Services.ApplicationContext>();
             services.AddSingleton<Core.Abstraction.ViewModels.IFamiliesListingViewModel, ViewModels.FamiliesListingViewModel>();
             services.AddSingleton<Core.Abstraction.Views.IFamiliesListingView, Views.FamiliesListingView>();
-            services.AddSingleton<Core.Abstraction.Services.IFamiliesService, Services.FamiliesService>();
             services.AddTransient<Core.Abstraction.ViewModels.ICreateFamilyViewModel, ViewModels.CreateFamilyViewModel>();
             services.AddTransient<Core.Abstraction.Views.IUpdateFamilyView, Views.UpdateFamilyView>();
             services.AddTransient<Core.Abstraction.ViewModels.IUpdateFamilyViewModel, ViewModels.UpdateFamilyViewModel>(s =>
             {
-                Core.Abstraction.Services.IFamiliesService familiesService = s.GetRequiredService<Core.Abstraction.Services.IFamiliesService>();
+                Core.Abstraction.Repositories.IFamiliesRepository familiesRepository = s.GetRequiredService<Core.Abstraction.Repositories.IFamiliesRepository>();
                 Core.Abstraction.Contexts.IFamilyContext context = s.GetRequiredService<Core.Abstraction.Contexts.IFamilyContext>();
-                return new ViewModels.UpdateFamilyViewModel(context.GetCurrentFamily(), familiesService);
+                return new ViewModels.UpdateFamilyViewModel(context.GetCurrentFamily(), familiesRepository);
             });
             #endregion
 
@@ -41,7 +40,6 @@ namespace AlAinRamadan
             #region Disbursements Management
             services.AddSingleton<Core.Abstraction.ViewModels.IDisbursementsListingViewModel, ViewModels.DisbursementsListingViewModel>();
             services.AddSingleton<Core.Abstraction.Views.IDisbursementsListingView, Views.DisbursementsListingView>();
-            services.AddSingleton<Core.Abstraction.Services.IDisbursementsService, Services.DisbursementsService>();
             #endregion
 
             return services;
