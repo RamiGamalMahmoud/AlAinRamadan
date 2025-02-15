@@ -30,5 +30,10 @@ namespace AlAinRamadan.Views
         {
             TextBoxFamilyId.Focus();
         }
+
+        private void ListView_GotFocus(object sender, System.Windows.RoutedEventArgs e)
+        {
+            (DataContext as IDisbursementsListingViewModel).InputType = InputType.Family;
+        }
     }
 }
