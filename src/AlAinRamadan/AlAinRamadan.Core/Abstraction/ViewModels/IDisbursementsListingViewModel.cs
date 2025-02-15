@@ -11,6 +11,7 @@ namespace AlAinRamadan.Core.Abstraction.ViewModels
     public enum InputType
     {
         CardNumber,
-        FamilyId
+        FamilyId,
+        Family
     }
 }

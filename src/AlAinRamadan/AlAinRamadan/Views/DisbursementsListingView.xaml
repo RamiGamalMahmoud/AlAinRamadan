@@ -50,27 +50,32 @@
                             TextAlignment="Center" />
                     </StackPanel>
 
-                    <StackPanel Margin="5,0" Orientation="Vertical">
-                        <TextBlock
-                            HorizontalAlignment="Center"
-                            FontSize="16"
-                            FontWeight="Bold"
-                            Foreground="{StaticResource Primary}"
-                            Text="رقم البطاقة" />
-                        <TextBox
-                            Name="TextBoxCardNumber"
-                            Width="200"
-                            Margin="0,5,0,0"
-                            Padding="10"
-                            Focusable="True"
-                            FontSize="30"
-                            GotFocus="TextBoxCardNumber_GotFocus"
-                            Text="{Binding CardNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            TextAlignment="Center" />
+                    <StackPanel>
+                        <StackPanel Margin="5,0" Orientation="Vertical">
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Foreground="{StaticResource Primary}"
+                                Text="رقم البطاقة" />
+                            <TextBox
+                                Name="TextBoxCardNumber"
+                                Width="200"
+                                Margin="0,5,0,0"
+                                Padding="10"
+                                Focusable="True"
+                                FontSize="30"
+                                GotFocus="TextBoxCardNumber_GotFocus"
+                                Text="{Binding CardNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                TextAlignment="Center" />
+                        </StackPanel>
+
                     </StackPanel>
 
                 </StackPanel>
             </Border>
+
+
 
             <Border
                 Grid.Row="1"
@@ -145,12 +150,24 @@
                             FlowDirection="LeftToRight"
                             Text="{Binding LastDisbursement.DateCreated, StringFormat=hh:mm:ss tt}" />
                     </Label>
+
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"
+                            Text="ملاحظات" />
+                        <TextBox Width="200" Text="{Binding Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+
                 </StackPanel>
             </Border>
 
         </Grid>
 
-        <Border Grid.Row="2" HorizontalAlignment="Stretch">
+        <Border
+            Grid.Row="2"
+            HorizontalAlignment="Stretch"
+            Panel.ZIndex="1">
             <DataGrid
                 hc:DataGridAttach.ShowRowNumber="True"
                 AutoGenerateColumns="False"
@@ -172,8 +189,66 @@
                         Width="150"
                         Binding="{Binding DateCreated, StringFormat=hh:mm:ss tt}"
                         Header="الوقت" />
+                    <DataGridTextColumn Binding="{Binding Notes}" Header="ملاحظات" />
                 </DataGrid.Columns>
             </DataGrid>
+        </Border>
+
+        <Border
+            Grid.RowSpan="3"
+            Padding="5"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Panel.ZIndex="1000"
+            Background="{StaticResource White}"
+            CornerRadius="5"
+            Visibility="{Binding HasFamilies, Converter={StaticResource BoolToVis}}">
+            <Border.Effect>
+                <DropShadowEffect
+                    BlurRadius="10"
+                    ShadowDepth="1"
+                    Color="LightGray" />
+            </Border.Effect>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <ToggleButton
+                    Grid.Row="0"
+                    Width="20"
+                    Height="20"
+                    Padding="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    HorizontalContentAlignment="Center"
+                    Content="&#x2715;"
+                    Cursor="Hand"
+                    IsChecked="{Binding HasFamilies, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ListView
+                    Grid.Row="1"
+                    VerticalAlignment="Bottom"
+                    Cursor="Hand"
+                    ItemsSource="{Binding Families}"
+                    SelectedItem="{Binding Family}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn
+                                Width="100"
+                                DisplayMemberBinding="{Binding Id}"
+                                Header="التسلسل" />
+                            <GridViewColumn
+                                Width="150"
+                                DisplayMemberBinding="{Binding Name}"
+                                Header="اسم العائلة" />
+                            <GridViewColumn
+                                Width="100"
+                                DisplayMemberBinding="{Binding CardNumber}"
+                                Header="رقم البطاقة" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
         </Border>
 
     </Grid>

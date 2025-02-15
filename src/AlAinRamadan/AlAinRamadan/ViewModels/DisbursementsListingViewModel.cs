@@ -62,6 +62,11 @@ namespace AlAinRamadan.ViewModels
             }
         }
 
+        partial void OnFamiliesChanged(IEnumerable<Family> oldValue, IEnumerable<Family> newValue)
+        {
+            HasFamilies = newValue is not null && newValue.Any();
+        }
+
         [RelayCommand(CanExecute = nameof(CanPrintTicket))]
         private async Task DirectPrintTicket()
         {
@@ -96,6 +101,16 @@ namespace AlAinRamadan.ViewModels
 
         [ObservableProperty]
         private InputType _inputType = InputType.FamilyId;
+
+        public bool HasFamilies
+        {
+            get => _hasFamilies;
+            set
+            {
+                SetProperty(ref _hasFamilies, value);
+            }
+        }
+        public bool _hasFamilies;
 
         [ObservableProperty]
         private string _cardNumber = string.Empty;

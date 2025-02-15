@@ -41,14 +41,19 @@ namespace AlAinRamadan.ViewModels
 
         async partial void OnCardNumberChanged(string oldValue, string newValue)
         {
-            if (_isCheckInputsEnabled) HasFoundFamiliesByCardNumber = (await _familiesService.GetFamiliesByCardNumberAsync(newValue)).Any();
+            FoundFamiliesByName = await _familiesService.GetFamiliesByPartOfCardNumberAsync(newValue);
+            if (_isCheckInputsEnabled) HasFoundFamiliesByCardNumber = FoundFamiliesByName.Select(x => x.CardNumber).Contains(newValue);
         }
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(HasFamilies))]
         private bool _hasFoundFamiliesByName;
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(HasFamilies))]
         private bool _hasFoundFamiliesByCardNumber;
+
+        public bool HasFamilies => HasFoundFamiliesByCardNumber || HasFoundFamiliesByName;
 
         [ObservableProperty]
         private IEnumerable<Family> _foundFamiliesByName;

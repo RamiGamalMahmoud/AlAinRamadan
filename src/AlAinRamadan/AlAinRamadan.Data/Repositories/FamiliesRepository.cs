@@ -71,7 +71,7 @@ namespace AlAinRamadan.Data.Repositories
         {
             using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
-                return await dbContext.Families.Where(f => f.Name.Contains(name)).ToListAsync();
+                return await dbContext.Families.Where(f => f.Name.Contains(name) && !string.IsNullOrEmpty(name)).ToListAsync();
             }
         }
 
@@ -79,7 +79,7 @@ namespace AlAinRamadan.Data.Repositories
         {
             using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
-                return await dbContext.Families.Where(f => f.CardNumber == cardNumber).ToListAsync();
+                return await dbContext.Families.Where(f => f.CardNumber == cardNumber && !string.IsNullOrEmpty(cardNumber)).ToListAsync();
             }
         }
 
@@ -87,7 +87,7 @@ namespace AlAinRamadan.Data.Repositories
         {
             using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
-                return await dbContext.Families.Where(f => f.CardNumber.Contains(cardNumber)).ToListAsync();
+                return await dbContext.Families.Where(f => f.CardNumber.Contains(cardNumber) && !string.IsNullOrEmpty(cardNumber)).ToListAsync();
             }
         }
 
