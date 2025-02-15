@@ -2,6 +2,7 @@
 using AlAinRamadan.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Collections.ObjectModel;
 
 namespace AlAinRamadan.Data.Repositories
 {
@@ -55,6 +56,16 @@ namespace AlAinRamadan.Data.Repositories
                     .Include(d => d.Family)
                     .OrderByDescending(d => d.DateCreated)
                     .ToListAsync();
+            }
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
+            {
+                Disbursement disbursement = dbContext.Disbursements.Find(id);
+                dbContext.Disbursements.Remove(disbursement);
+                await dbContext.SaveChangesAsync();
             }
         }
 

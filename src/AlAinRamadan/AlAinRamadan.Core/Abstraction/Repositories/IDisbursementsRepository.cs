@@ -11,5 +11,6 @@ namespace AlAinRamadan.Core.Abstraction.Repositories
         Task<Disbursement> CreateAsync(Disbursement disbursement);
         Task<int> GetLastTicketNumberAsync(DateTime date);
         Task<IEnumerable<Disbursement>> GetFamilyDisbursementsAsync(int familyId);
+        Task DeleteAsync(int id);
     }
 }
