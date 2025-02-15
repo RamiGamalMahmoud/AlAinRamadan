@@ -12,5 +12,6 @@ namespace AlAinRamadan.Core.Abstraction.Services
         Task<int> GetTicketNumberAsync();
         Task<Disbursement> CreateDisbursementAsync(Disbursement disbursement);
         Task<IEnumerable<Disbursement>> GetFamilyDisbursementsAsync(int familyId);
+        Task<IEnumerable<Family>> GetFamiliesByPartOfCardNumberAsync(string cardNumber);
     }
 }

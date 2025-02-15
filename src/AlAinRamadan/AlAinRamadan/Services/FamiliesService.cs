@@ -38,5 +38,10 @@ namespace AlAinRamadan.Services
         {
             return await _familiesRepository.GetTotalFamiliesAsync();
         }
+
+        public async Task<IEnumerable<Family>> GetFamiliesByPartOfCardNumberAsync(string cardNumber)
+        {
+            return await _familiesRepository.GetFamiliesByPartOfCardNumberAsync(cardNumber);
+        }
     }
 }

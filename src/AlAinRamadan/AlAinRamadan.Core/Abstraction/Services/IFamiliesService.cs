@@ -11,6 +11,7 @@ namespace AlAinRamadan.Core.Abstraction.Services
         Task<IEnumerable<Family>> GetAllFamiliesAsync();
         Task<IEnumerable<Family>> GetFamiliesByNameAsync(string name);
         Task<IEnumerable<Family>> GetFamiliesByCardNumberAsync(string cardNumber);
+        Task<IEnumerable<Family>> GetFamiliesByPartOfCardNumberAsync(string cardNumber);
         Task<bool> UpdateAsync(FamilyDTO familyDTO);
         Task<int> GetTotalFamiliesAsync();
     }

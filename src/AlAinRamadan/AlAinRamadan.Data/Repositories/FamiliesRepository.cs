@@ -15,7 +15,7 @@ namespace AlAinRamadan.Data.Repositories
 
         public async Task<Family> CreateAsync(FamilyDTO dTO)
         {
-            using(AppDbContext dbContext = _dbContextFactory.CreateDbContext())
+            using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
                 Family family = new Family(dTO.CardNumber, dTO.Name);
                 dbContext.Families.Add(family);
@@ -48,7 +48,7 @@ namespace AlAinRamadan.Data.Repositories
 
         public async Task<bool> UpdateAsync(FamilyDTO dTO)
         {
-            using(AppDbContext dbContext = _dbContextFactory.CreateDbContext())
+            using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
                 Family storedFamily = await dbContext.Families.FindAsync(dTO.Id);
                 storedFamily.CardNumber = dTO.CardNumber;
@@ -69,23 +69,31 @@ namespace AlAinRamadan.Data.Repositories
 
         public async Task<IEnumerable<Family>> GetFamiliesByNameAsync(string name)
         {
-            using(AppDbContext dbContext = _dbContextFactory.CreateDbContext())
+            using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
-                return await dbContext.Families.Where(f => f.Name == name).ToListAsync();
+                return await dbContext.Families.Where(f => f.Name.Contains(name)).ToListAsync();
             }
         }
 
         public async Task<IEnumerable<Family>> GetFamiliesByCardNumberAsync(string cardNumber)
         {
-            using(AppDbContext dbContext = _dbContextFactory.CreateDbContext())
+            using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
                 return await dbContext.Families.Where(f => f.CardNumber == cardNumber).ToListAsync();
             }
         }
 
+        public async Task<IEnumerable<Family>> GetFamiliesByPartOfCardNumberAsync(string cardNumber)
+        {
+            using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
+            {
+                return await dbContext.Families.Where(f => f.CardNumber.Contains(cardNumber)).ToListAsync();
+            }
+        }
+
         public async Task<Family> GetFamilyByIdAsync(int id)
         {
-            using(AppDbContext dbContext = _dbContextFactory.CreateDbContext())
+            using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
                 return await dbContext.Families.FindAsync(id);
             }
@@ -93,7 +101,7 @@ namespace AlAinRamadan.Data.Repositories
 
         public Task<Family> GetFamilyByCardNumberAsync(string cardNumber)
         {
-            using(AppDbContext dbContext = _dbContextFactory.CreateDbContext())
+            using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
                 return dbContext.Families.FirstOrDefaultAsync(f => f.CardNumber == cardNumber);
             }
@@ -101,7 +109,7 @@ namespace AlAinRamadan.Data.Repositories
 
         public async Task<int> GetTotalFamiliesAsync()
         {
-            using(AppDbContext dbContext = _dbContextFactory.CreateDbContext())
+            using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
                 return await dbContext.Families.CountAsync();
             }

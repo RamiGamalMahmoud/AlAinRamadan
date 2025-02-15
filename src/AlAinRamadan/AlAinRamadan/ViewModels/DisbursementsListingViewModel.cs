@@ -31,7 +31,7 @@ namespace AlAinRamadan.ViewModels
             {
                 return;
             }
-
+            Families = await _disbursementsService.GetFamiliesByPartOfCardNumberAsync(newValue);
             Family = await _disbursementsService.GetFamilyByCardNumberAsync(newValue);
             FamilyId = Family?.Id.ToString();
         }
@@ -112,6 +112,9 @@ namespace AlAinRamadan.ViewModels
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(DirectPrintTicketCommand))]
         private Family _family;
+
+        [ObservableProperty]
+        private IEnumerable<Family> _families;
 
         [ObservableProperty]
         private string _notes = string.Empty;
