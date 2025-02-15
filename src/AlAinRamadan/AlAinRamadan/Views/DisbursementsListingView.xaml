@@ -190,6 +190,20 @@
                         Binding="{Binding DateCreated, StringFormat=hh:mm:ss tt}"
                         Header="الوقت" />
                     <DataGridTextColumn Binding="{Binding Notes}" Header="ملاحظات" />
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button
+                                    Margin="10,0,0,0"
+                                    Padding="5"
+                                    Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.DeleteDisbursementCommand}"
+                                    CommandParameter="{Binding}"
+                                    Content="حذف"
+                                    Cursor="Hand"
+                                    Style="{StaticResource ButtonDanger}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
@@ -229,6 +243,7 @@
                     Grid.Row="1"
                     VerticalAlignment="Bottom"
                     Cursor="Hand"
+                    GotFocus="ListView_GotFocus"
                     ItemsSource="{Binding Families}"
                     SelectedItem="{Binding Family}">
                     <ListView.View>
