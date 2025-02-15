@@ -74,7 +74,7 @@ namespace AlAinRamadan.Data.Repositories
             {
                 return await dbContext
                     .Families
-                    .Where(f => f.Name.Contains(name) && !string.IsNullOrEmpty(name) && (bool)f.IsDeleted)
+                    .Where(f => !string.IsNullOrEmpty(name) && f.Name.Contains(name) && f.IsDeleted != true)
                     .ToListAsync();
             }
         }
