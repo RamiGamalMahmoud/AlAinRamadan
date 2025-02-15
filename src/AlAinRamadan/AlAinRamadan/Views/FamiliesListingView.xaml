@@ -99,6 +99,15 @@
                                         Cursor="Hand"
                                         Style="{StaticResource ButtonInfo}" />
 
+                                    <Button
+                                        Margin="10,0,0,0"
+                                        Padding="5"
+                                        Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.DeleteFamilyCommand}"
+                                        CommandParameter="{Binding}"
+                                        Content="حذف"
+                                        Cursor="Hand"
+                                        Style="{StaticResource ButtonDanger}" />
+
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
