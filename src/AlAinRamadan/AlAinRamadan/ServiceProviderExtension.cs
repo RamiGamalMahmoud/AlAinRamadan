@@ -27,7 +27,7 @@ namespace AlAinRamadan
             services.AddSingleton<Core.Abstraction.ViewModels.IFamiliesListingViewModel, ViewModels.FamiliesListingViewModel>();
             services.AddSingleton<Core.Abstraction.Views.IFamiliesListingView, Views.FamiliesListingView>();
             services.AddSingleton<Core.Abstraction.Services.IFamiliesService, Services.FamiliesService>();
-            services.AddSingleton<Core.Abstraction.ViewModels.ICreateFamilyViewModel, ViewModels.CreateFamilyViewModel>();
+            services.AddTransient<Core.Abstraction.ViewModels.ICreateFamilyViewModel, ViewModels.CreateFamilyViewModel>();
             services.AddTransient<Core.Abstraction.Views.IUpdateFamilyView, Views.UpdateFamilyView>();
             services.AddTransient<Core.Abstraction.ViewModels.IUpdateFamilyViewModel, ViewModels.UpdateFamilyViewModel>(s =>
             {
