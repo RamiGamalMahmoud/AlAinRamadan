@@ -31,6 +31,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
                     <ListBox
                         Grid.Row="0"
@@ -62,7 +63,9 @@
                         Padding="5"
                         Background="{StaticResource White}"
                         CornerRadius="5">
+
                         <StackPanel Margin="0,10">
+
                             <StackPanel Orientation="Vertical">
                                 <TextBlock Text="طابعة الفواتير" />
                                 <ComboBox
@@ -71,6 +74,7 @@
                                     ItemsSource="{Binding Printers}"
                                     SelectedValue="{Binding RecipePrinter}" />
                             </StackPanel>
+
                             <StackPanel Margin="0,10" Orientation="Vertical">
                                 <TextBlock Text="طابعة البار كودد" />
                                 <ComboBox
@@ -79,8 +83,20 @@
                                     ItemsSource="{Binding Printers}"
                                     SelectedValue="{Binding LabelPrinter}" />
                             </StackPanel>
+
                         </StackPanel>
+
                     </Border>
+
+                    <TextBlock
+                        Grid.Row="2"
+                        Margin="0,5"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontWeight="SemiBold"
+                        Foreground="{StaticResource Primary}"
+                        Text="{Binding Version}"
+                        ToolTip="{Binding Version}" />
 
                 </Grid>
             </Border>
