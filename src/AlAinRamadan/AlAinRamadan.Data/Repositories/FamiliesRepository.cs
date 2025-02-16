@@ -74,7 +74,7 @@ namespace AlAinRamadan.Data.Repositories
             {
                 return await dbContext
                     .Families
-                    .Where(f => !string.IsNullOrEmpty(name) && f.Name.Contains(name) && f.IsDeleted != true)
+                    .Where(f => !string.IsNullOrEmpty(name) && f.Name.StartsWith(name) && f.IsDeleted != true)
                     .ToListAsync();
             }
         }
@@ -96,7 +96,7 @@ namespace AlAinRamadan.Data.Repositories
             {
                 return await dbContext
                     .Families
-                    .Where(f => f.CardNumber.Contains(cardNumber) && !string.IsNullOrEmpty(cardNumber) && f.IsDeleted != true)
+                    .Where(f => f.CardNumber.StartsWith(cardNumber) && !string.IsNullOrEmpty(cardNumber) && f.IsDeleted != true)
                     .ToListAsync();
             }
         }
