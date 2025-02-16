@@ -14,7 +14,7 @@ namespace AlAinRamadan.ViewModels
 
         protected override async Task Save()
         {
-            await _familiesRepository.CreateAsync(new FamilyDTO(0, CardNumber, Name));
+            await _familiesRepository.CreateAsync(new FamilyDTO(0, CardNumber, Name, Notes));
         }
     }
 }

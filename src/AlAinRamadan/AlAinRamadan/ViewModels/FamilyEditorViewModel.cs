@@ -27,7 +27,11 @@ namespace AlAinRamadan.ViewModels
         [NotifyDataErrorInfo]
         [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
         private string _name;
-        
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
+        private string _notes;
+
         protected readonly IFamiliesRepository _familiesRepository;
 
         async partial void OnNameChanged(string oldValue, string newValue)
@@ -41,8 +45,11 @@ namespace AlAinRamadan.ViewModels
 
         async partial void OnCardNumberChanged(string oldValue, string newValue)
         {
-            FoundFamiliesByName = await _familiesRepository.GetFamiliesByPartOfCardNumberAsync(newValue);
-            if (_isCheckInputsEnabled) HasFoundFamiliesByCardNumber = FoundFamiliesByName.Select(x => x.CardNumber).Contains(newValue);
+            if (_isCheckInputsEnabled)
+            {
+                FoundFamiliesByName = await _familiesRepository.GetFamiliesByPartOfCardNumberAsync(newValue);
+                HasFoundFamiliesByCardNumber = FoundFamiliesByName.Select(x => x.CardNumber).Contains(newValue);
+            }
         }
 
         [ObservableProperty]

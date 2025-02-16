@@ -76,6 +76,10 @@
                         Width="200"
                         Binding="{Binding CardNumber}"
                         Header="رقم البطاقة" />
+                    <DataGridTextColumn
+                        Width="200"
+                        Binding="{Binding Notes}"
+                        Header="ملاحظات" />
 
                     <DataGridTemplateColumn>
 

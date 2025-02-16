@@ -13,6 +13,7 @@ namespace AlAinRamadan.ViewModels
             _family = family;
             CardNumber = family.CardNumber;
             Name = family.Name;
+            Notes = family.Notes;
             EnableCheckInputs();
         }
 
@@ -20,12 +21,13 @@ namespace AlAinRamadan.ViewModels
 
         protected override async Task Save()
         {
-            FamilyDTO familyDTO = new FamilyDTO(_family.Id , CardNumber, Name);
+            FamilyDTO familyDTO = new FamilyDTO(_family.Id , CardNumber, Name, Notes);
             bool result = await _familiesRepository.UpdateAsync(familyDTO);
             if(result)
             {
                 _family.Name = Name;
                 _family.CardNumber = CardNumber;
+                _family.Notes = Notes;
             }
         }
     }
