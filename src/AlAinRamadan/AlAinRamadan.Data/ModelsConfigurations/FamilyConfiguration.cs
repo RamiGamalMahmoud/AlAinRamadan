@@ -14,6 +14,7 @@ namespace AlAinRamadan.Data.ModelsConfigurations
             builder.Property(f => f.Name).IsRequired();
 
             builder.HasIndex(f => f.CardNumber).IsUnique();
+            builder.Property(f => f.Notes).IsRequired(false);
         }
     }
 }

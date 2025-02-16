@@ -21,5 +21,8 @@ namespace AlAinRamadan.Core.Models
 
         [ObservableProperty]
         private bool? _isDeleted;
+
+        [ObservableProperty]
+        private string _notes;
     }
 }
