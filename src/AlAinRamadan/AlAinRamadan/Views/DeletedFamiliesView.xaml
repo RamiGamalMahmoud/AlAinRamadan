@@ -1,0 +1,69 @@
+﻿<Window
+    x:Class="AlAinRamadan.Views.DeletedFamiliesView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:AlAinRamadan.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vms="clr-namespace:AlAinRamadan.Core.Abstraction.ViewModels;assembly=AlAinRamadan.Core"
+    Title="DeletedFamiliesView"
+    d:DataContext="{d:DesignInstance Type=vms:IDeletedFamiliesViewModel}"
+    FontSize="14"
+    FontWeight="Bold"
+    WindowState="Maximized"
+    mc:Ignorable="d">
+
+    <Grid FlowDirection="RightToLeft">
+        <DataGrid
+            AutoGenerateColumns="False"
+            GridLinesVisibility="Vertical"
+            IsReadOnly="True"
+            ItemsSource="{Binding Families}"
+            RowHeaderWidth="50"
+            VerticalGridLinesBrush="LightGray">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Width="100"
+                    Binding="{Binding Id}"
+                    Header="التسلسل" />
+                <DataGridTextColumn
+                    Width="200"
+                    Binding="{Binding Name}"
+                    Header="الاسم" />
+                <DataGridTextColumn
+                    Width="200"
+                    Binding="{Binding CardNumber}"
+                    Header="رقم البطاقة" />
+                <DataGridTextColumn
+                    Width="200"
+                    Binding="{Binding Notes}"
+                    Header="ملاحظات" />
+
+                <DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+
+                                <Button
+                                    Margin="10,0,0,0"
+                                    Padding="5"
+                                    Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.RestoreFamilyCommand}"
+                                    CommandParameter="{Binding}"
+                                    Content="استعادة"
+                                    Cursor="Hand"
+                                    Style="{StaticResource ButtonInfo}" />
+
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+
+        </DataGrid>
+    </Grid>
+
+</Window>
