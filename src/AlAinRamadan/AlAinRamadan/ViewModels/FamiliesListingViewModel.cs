@@ -36,6 +36,12 @@ namespace AlAinRamadan.ViewModels
         }
 
         [RelayCommand]
+        private Task ShowDeletedFamilies()
+        {
+            return _mediator.Send(new Core.Commands.Common.ShowDeletedCommand<Family>());
+        }
+
+        [RelayCommand]
         public async Task LoadAsync()
         {
             Families = await _familiesRepository.GetAllFamiliesAsync();
