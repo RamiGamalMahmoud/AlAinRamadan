@@ -6,15 +6,17 @@
     xmlns:local="clr-namespace:AlAinRamadan.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vms="clr-namespace:AlAinRamadan.Core.Abstraction.ViewModels;assembly=AlAinRamadan.Core"
-    Title="DeletedFamiliesView"
+    Title="العائلات المحذوفة"
     d:DataContext="{d:DesignInstance Type=vms:IDeletedFamiliesViewModel}"
     FontSize="14"
     FontWeight="Bold"
-    WindowState="Maximized"
+    SizeToContent="WidthAndHeight"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
-    <Grid FlowDirection="RightToLeft">
+    <Border Padding="5" FlowDirection="RightToLeft">
         <DataGrid
+            HorizontalAlignment="Center"
             AutoGenerateColumns="False"
             GridLinesVisibility="Vertical"
             IsReadOnly="True"
@@ -64,6 +66,6 @@
             </DataGrid.Columns>
 
         </DataGrid>
-    </Grid>
+    </Border>
 
 </Window>
