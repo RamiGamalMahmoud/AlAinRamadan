@@ -153,6 +153,7 @@ namespace AlAinRamadan.Data.Repositories
                 Family family = dbContext.Families.Find(id);
                 family.IsDeleted = false;
                 dbContext.Families.Update(family);
+                _models.Add(family);
                 await dbContext.SaveChangesAsync();
             }
         }
