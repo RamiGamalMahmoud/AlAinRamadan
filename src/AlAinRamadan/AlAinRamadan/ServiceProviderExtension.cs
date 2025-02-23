@@ -34,6 +34,8 @@ namespace AlAinRamadan
                 Core.Abstraction.Contexts.IFamilyContext context = s.GetRequiredService<Core.Abstraction.Contexts.IFamilyContext>();
                 return new ViewModels.UpdateFamilyViewModel(context.GetCurrentFamily(), familiesRepository);
             });
+            services.AddTransient<Core.Abstraction.ViewModels.IDeletedFamiliesViewModel, ViewModels.DeletedFamiliesViewModel>();
+            services.AddTransient<Core.Abstraction.Views.IDeletedFamiliesView, Views.DeletedFamiliesView>();
             #endregion
 
 
