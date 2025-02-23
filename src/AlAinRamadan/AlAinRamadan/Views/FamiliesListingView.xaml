@@ -42,6 +42,16 @@
                     FontSize="14"
                     Style="{StaticResource ButtonInfo}" />
 
+                <Button
+                    Width="100"
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left"
+                    Command="{Binding ShowDeletedFamiliesCommand}"
+                    Content="العائلات المذوفة"
+                    Cursor="Hand"
+                    FontSize="14"
+                    Style="{StaticResource ButtonDanger}" />
+
                 <TextBox
                     Width="200"
                     Margin="20,0,0,0"
