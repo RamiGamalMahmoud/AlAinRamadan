@@ -22,7 +22,7 @@ namespace AlAinRamadan.Data.Repositories
                 try
                 {
                     await dbContext.SaveChangesAsync();
-                    _models.Insert(0, family);
+                    _models?.Insert(0, family);
                     return family;
                 }
                 catch (System.Exception)
