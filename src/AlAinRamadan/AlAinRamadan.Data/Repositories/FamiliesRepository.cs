@@ -8,7 +8,7 @@ namespace AlAinRamadan.Data.Repositories
 {
     internal class FamiliesRepository : RepositoryBase<Family>, IFamiliesRepository
     {
-        public FamiliesRepository(AppDbContextFactory dbContextFactory)
+        public FamiliesRepository(IAppDbContextFactory dbContextFactory)
         {
             _dbContextFactory = dbContextFactory;
         }
@@ -169,6 +169,6 @@ namespace AlAinRamadan.Data.Repositories
             }
         }
 
-        private readonly AppDbContextFactory _dbContextFactory;
+        private readonly IAppDbContextFactory _dbContextFactory;
     }
 }
