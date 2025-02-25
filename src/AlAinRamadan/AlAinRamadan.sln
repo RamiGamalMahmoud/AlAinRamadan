@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlAinRamadan.Data", "AlAinR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlAinRamadan.Core", "AlAinRamadan.Core\AlAinRamadan.Core.csproj", "{D2810134-C4E9-4705-8454-8E02063592B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlAinRamadan.Tests", "AlAinRamadan.Tests\AlAinRamadan.Tests.csproj", "{BEFF8267-CA86-467A-B7B2-66E8FED70A69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{D2810134-C4E9-4705-8454-8E02063592B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2810134-C4E9-4705-8454-8E02063592B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2810134-C4E9-4705-8454-8E02063592B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEFF8267-CA86-467A-B7B2-66E8FED70A69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEFF8267-CA86-467A-B7B2-66E8FED70A69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEFF8267-CA86-467A-B7B2-66E8FED70A69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEFF8267-CA86-467A-B7B2-66E8FED70A69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

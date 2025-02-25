@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AlAinRamadan.Data;
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace AlAinRamadan
@@ -17,6 +18,7 @@ namespace AlAinRamadan
             services.AddSingleton<Core.Abstraction.Services.IApplicationContext, Services.ApplicationContext>();
 
             services.AddSingleton<AlAinRamadan.Data.AppDbContextFactory>();
+            services.AddSingleton<Data.IAppDbContextFactory, Data.AppDbContextFactory>();
             services.AddSingleton<Core.Abstraction.IDirectoriesService, Services.DirectoriesService>();
 
             services.AddSingleton<Core.Abstraction.ViewModels.IMainViewModel, ViewModels.MainViewModel>();
