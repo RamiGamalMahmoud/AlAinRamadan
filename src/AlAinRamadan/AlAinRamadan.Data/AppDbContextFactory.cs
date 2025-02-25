@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AlAinRamadan.Data
 {
-    public class AppDbContextFactory
+    public class AppDbContextFactory : IAppDbContextFactory
     {
         public AppDbContextFactory(IConnectionStringFactory connectionStringFactory)
         {
