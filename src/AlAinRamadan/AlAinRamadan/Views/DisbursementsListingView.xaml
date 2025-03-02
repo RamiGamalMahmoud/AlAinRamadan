@@ -104,6 +104,7 @@
                     <Button
                         Height="auto"
                         Margin="5,0"
+                        IsDefault="True"
                         BorderBrush="{StaticResource Primary}"
                         Click="Button_Click"
                         Command="{Binding DirectPrintTicketCommand}"
