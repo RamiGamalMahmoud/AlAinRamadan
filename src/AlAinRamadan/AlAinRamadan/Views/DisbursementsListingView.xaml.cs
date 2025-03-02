@@ -13,7 +13,7 @@ namespace AlAinRamadan.Views
             DataContext = viewModel;
 
             Loaded += async (s, e) => await Dispatcher.Invoke(() => viewModel.LoadAsync());
-            Loaded += (s, e) => Dispatcher.Invoke(() => TextBoxFamilyId.Focus());
+            Loaded += (s, e) => Dispatcher.Invoke(() => TextBoxCardNumber.Focus());
         }
 
         private void TextBoxCardNumber_GotFocus(object sender, System.Windows.RoutedEventArgs e)
@@ -28,7 +28,7 @@ namespace AlAinRamadan.Views
 
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            TextBoxFamilyId.Focus();
+            TextBoxCardNumber.Focus();
         }
 
         private void ListView_GotFocus(object sender, System.Windows.RoutedEventArgs e)
