@@ -35,5 +35,15 @@ namespace AlAinRamadan.Views
         {
             (DataContext as IDisbursementsListingViewModel).InputType = InputType.Family;
         }
+
+        private void TextBoxCardNumber_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        
+        {
+            if(e.Key == System.Windows.Input.Key.Enter)
+            {
+                TextBoxCardNumber.Focus();
+                TextBoxCardNumber.SelectAll();
+            }
+        }
     }
 }
