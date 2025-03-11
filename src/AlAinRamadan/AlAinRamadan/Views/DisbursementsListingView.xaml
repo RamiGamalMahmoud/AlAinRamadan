@@ -165,11 +165,15 @@
 
         </Grid>
 
-        <Border
-            Grid.Row="2"
-            HorizontalAlignment="Stretch"
-            Panel.ZIndex="1">
+        <Grid Grid.Row="2">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+
             <DataGrid
+                Grid.Column="0"
                 hc:DataGridAttach.ShowRowNumber="True"
                 AutoGenerateColumns="False"
                 GridLinesVisibility="Vertical"
@@ -207,66 +211,63 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-        </Border>
 
-        <Border
-            Grid.RowSpan="3"
-            Margin="0,150,10,0"
-            Padding="5"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            Panel.ZIndex="1000"
-            Background="{StaticResource White}"
-            CornerRadius="5"
-            Visibility="{Binding HasFamilies, Converter={StaticResource BoolToVis}}">
-            <Border.Effect>
-                <DropShadowEffect
-                    BlurRadius="10"
-                    ShadowDepth="1"
-                    Color="LightGray" />
-            </Border.Effect>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-                <ToggleButton
-                    Grid.Row="0"
-                    Width="20"
-                    Height="20"
-                    Padding="0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    HorizontalContentAlignment="Center"
-                    Content="&#x2715;"
-                    Cursor="Hand"
-                    IsChecked="{Binding HasFamilies, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <ListView
-                    Grid.Row="1"
-                    VerticalAlignment="Bottom"
-                    Cursor="Hand"
-                    GotFocus="ListView_GotFocus"
-                    ItemsSource="{Binding Families}"
-                    SelectedItem="{Binding Family}">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn
-                                Width="100"
-                                DisplayMemberBinding="{Binding Id}"
-                                Header="التسلسل" />
-                            <GridViewColumn
-                                Width="150"
-                                DisplayMemberBinding="{Binding Name}"
-                                Header="اسم العائلة" />
-                            <GridViewColumn
-                                Width="100"
-                                DisplayMemberBinding="{Binding CardNumber}"
-                                Header="رقم البطاقة" />
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </Grid>
-        </Border>
+            <Border
+                Grid.Column="1"
+                Padding="5"
+                Background="{StaticResource White}"
+                CornerRadius="5"
+                Visibility="{Binding HasFamilies, Converter={StaticResource BoolToVis}}">
+                <Border.Effect>
+                    <DropShadowEffect
+                        BlurRadius="10"
+                        ShadowDepth="1"
+                        Color="LightGray" />
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <ToggleButton
+                        Grid.Row="0"
+                        Width="20"
+                        Height="20"
+                        Padding="0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        HorizontalContentAlignment="Center"
+                        Content="&#x2715;"
+                        Cursor="Hand"
+                        IsChecked="{Binding HasFamilies, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <ListView
+                        Grid.Row="1"
+                        VerticalAlignment="Bottom"
+                        Cursor="Hand"
+                        GotFocus="ListView_GotFocus"
+                        ItemsSource="{Binding Families}"
+                        SelectedItem="{Binding Family}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn
+                                    Width="100"
+                                    DisplayMemberBinding="{Binding Id}"
+                                    Header="التسلسل" />
+                                <GridViewColumn
+                                    Width="150"
+                                    DisplayMemberBinding="{Binding Name}"
+                                    Header="اسم العائلة" />
+                                <GridViewColumn
+                                    Width="100"
+                                    DisplayMemberBinding="{Binding CardNumber}"
+                                    Header="رقم البطاقة" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </Border>
+        </Grid>
+
 
     </Grid>
 
