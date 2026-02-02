@@ -157,8 +157,11 @@
                         <TextBlock
                             VerticalAlignment="Center"
                             FontWeight="Bold"
-                            Text="ملاحظات" />
-                        <TextBox Width="200" Text="{Binding Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            Text="ملاحظات خاصة بالصرف" />
+                        <TextBox
+                            Width="200"
+                            Margin="5,0"
+                            Text="{Binding Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
 
                 </StackPanel>
@@ -263,15 +266,20 @@
                                     DisplayMemberBinding="{Binding CardNumber}"
                                     Header="رقم البطاقة" />
 
-                                <GridViewColumn DisplayMemberBinding="{Binding Notes}" Header="ملاحظات" />
-                                <GridViewColumn Header="اشعار">
+                                <GridViewColumn
+                                    Width="100"
+                                    DisplayMemberBinding="{Binding Notes}"
+                                    Header="ملاحظات" />
+
+                                <GridViewColumn Header="جرس">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <materialIcons:MaterialIcon
+                                                Width="20"
                                                 Height="20"
                                                 Foreground="Red"
                                                 Kind="Notifications"
-                                                Visibility="{Binding HasNotice, Converter={StaticResource InvertBoolToVis}}" />
+                                                Visibility="{Binding HasNotice, Converter={StaticResource BoolToVis}}" />
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
