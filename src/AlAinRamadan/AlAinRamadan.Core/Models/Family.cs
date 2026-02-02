@@ -25,5 +25,8 @@ namespace AlAinRamadan.Core.Models
 
         [ObservableProperty]
         private string _notes;
+
+        [ObservableProperty]
+        private bool? _hasNotice;
     }
 }

@@ -179,6 +179,14 @@ namespace AlAinRamadan.Data.Repositories
             }
         }
 
+        public async Task MarkFamilyHasNotce(int id, bool hasNotice)
+        {
+            using AppDbContext appDbContext = _dbContextFactory.CreateDbContext();
+            Family family = await appDbContext.Families.FindAsync(id);
+            family.HasNotice = hasNotice;
+            await appDbContext.SaveChangesAsync();
+        }
+
         private readonly IAppDbContextFactory _dbContextFactory;
     }
 }

@@ -1,11 +1,13 @@
 ﻿using AlAinRamadan.Core.Abstraction.Repositories;
 using AlAinRamadan.Core.Abstraction.ViewModels;
 using AlAinRamadan.Core.Models;
+using System.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MediatR;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace AlAinRamadan.ViewModels
 {
@@ -97,6 +99,18 @@ namespace AlAinRamadan.ViewModels
             await _familiesRepository.MarkFamilyIsDeleted(family.Id);
             Families = await _familiesRepository.GetAllFamiliesAsync();
             TotalFamilies = await _familiesRepository.GetTotalFamiliesAsync();
+        }
+
+        [RelayCommand]
+        private async Task MarkFamilyHasNotce(Family family)
+        {
+            bool hasNotice = !(family.HasNotice is not null && (bool)family.HasNotice);
+            await _familiesRepository.MarkFamilyHasNotce(family.Id, hasNotice);
+            family.HasNotice = hasNotice;
+            MediaPlayer mediaPlayer = new MediaPlayer();
+            mediaPlayer.Open(new System.Uri("Resources/Sounds/mixkit-software-interface-back-2575.wav", System.UriKind.Relative));
+            mediaPlayer.Play();
+            //SystemSounds.Asterisk.Play();
         }
 
         private readonly IMediator _mediator;

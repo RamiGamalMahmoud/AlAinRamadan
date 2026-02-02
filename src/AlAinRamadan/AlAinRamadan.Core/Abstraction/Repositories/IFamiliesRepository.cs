@@ -20,5 +20,6 @@ namespace AlAinRamadan.Core.Abstraction.Repositories
         Task RestoreAsync(int id);
         Task<IEnumerable<Family>> GetDeletedFamiliesAsync();
         Task MarkFamilyIsDeleted(int id);
+        Task MarkFamilyHasNotce(int id, bool hasNotice);
     }
 }
