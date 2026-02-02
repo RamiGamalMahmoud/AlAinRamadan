@@ -19,5 +19,6 @@ namespace AlAinRamadan.Core.Abstraction.Repositories
         Task DeleteAsync(int id);
         Task RestoreAsync(int id);
         Task<IEnumerable<Family>> GetDeletedFamiliesAsync();
+        Task MarkFamilyIsDeleted(int id);
     }
 }

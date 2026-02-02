@@ -140,6 +140,16 @@ namespace AlAinRamadan.Data.Repositories
             using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
                 Family family = dbContext.Families.Find(id);
+                dbContext.Families.Remove(family);
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
+        public async Task MarkFamilyIsDeleted(int id)
+        {
+            using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
+            {
+                Family family = dbContext.Families.Find(id);
                 family.IsDeleted = true;
                 dbContext.Families.Update(family);
                 await dbContext.SaveChangesAsync();

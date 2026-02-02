@@ -5,9 +5,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:AlAinRamadan.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:AlAinRamadan.ViewModels"
     xmlns:vms="clr-namespace:AlAinRamadan.Core.Abstraction.ViewModels;assembly=AlAinRamadan.Core"
     Title="العائلات المحذوفة"
-    d:DataContext="{d:DesignInstance Type=vms:IDeletedFamiliesViewModel}"
+    d:DataContext="{d:DesignInstance Type=viewModels:DeletedFamiliesViewModel}"
     FontSize="14"
     FontWeight="Bold"
     SizeToContent="WidthAndHeight"
@@ -17,6 +18,7 @@
     <Border Padding="5" FlowDirection="RightToLeft">
         <DataGrid
             HorizontalAlignment="Center"
+            d:DataContext="{d:SampleData}"
             AutoGenerateColumns="False"
             GridLinesVisibility="Vertical"
             IsReadOnly="True"
@@ -56,6 +58,16 @@
                                     Content="استعادة"
                                     Cursor="Hand"
                                     Style="{StaticResource ButtonInfo}" />
+
+
+                                <Button
+                                    Margin="10,0,0,0"
+                                    Padding="5"
+                                    Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.DeleteFamilyCommand}"
+                                    CommandParameter="{Binding}"
+                                    Content="حذف"
+                                    Cursor="Hand"
+                                    Style="{StaticResource ButtonDanger}" />
 
                             </StackPanel>
                         </DataTemplate>

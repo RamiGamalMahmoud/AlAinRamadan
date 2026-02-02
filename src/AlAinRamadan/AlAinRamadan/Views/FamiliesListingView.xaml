@@ -6,6 +6,8 @@
     xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:local="clr-namespace:AlAinRamadan.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:AlAinRamadan.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:FamiliesListingViewModel}"
     x:ClassModifier="internal"
     mc:Ignorable="d">
 
@@ -101,7 +103,7 @@
                                         CommandParameter="{Binding}"
                                         Content="تعديل"
                                         Cursor="Hand"
-                                        Style="{StaticResource ButtonWarning}" />
+                                        Style="{StaticResource ButtonPrimary}" />
 
                                     <Button
                                         Margin="10,0,0,0"
@@ -110,7 +112,16 @@
                                         CommandParameter="{Binding}"
                                         Content="باركود"
                                         Cursor="Hand"
-                                        Style="{StaticResource ButtonInfo}" />
+                                        Style="{StaticResource ButtonPrimary}" />
+
+                                    <Button
+                                        Margin="10,0,0,0"
+                                        Padding="5"
+                                        Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.MoveFamilyToTrashCommand}"
+                                        CommandParameter="{Binding}"
+                                        Content="نقل الى السلة"
+                                        Cursor="Hand"
+                                        Style="{StaticResource ButtonWarning}" />
 
                                     <Button
                                         Margin="10,0,0,0"

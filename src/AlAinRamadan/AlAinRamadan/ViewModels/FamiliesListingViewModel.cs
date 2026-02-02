@@ -91,6 +91,14 @@ namespace AlAinRamadan.ViewModels
             TotalFamilies = await _familiesRepository.GetTotalFamiliesAsync();
         }
 
+        [RelayCommand]
+        private async Task MoveFamilyToTrash(Family family)
+        {
+            await _familiesRepository.MarkFamilyIsDeleted(family.Id);
+            Families = await _familiesRepository.GetAllFamiliesAsync();
+            TotalFamilies = await _familiesRepository.GetTotalFamiliesAsync();
+        }
+
         private readonly IMediator _mediator;
         private readonly IFamiliesRepository _familiesRepository;
     }

@@ -24,6 +24,13 @@ namespace AlAinRamadan.ViewModels
             Families.Remove(family);
         }
 
+        [RelayCommand]
+        private async Task DeleteFamily(Family family)
+        {
+            await _familiesRepository.DeleteAsync(family.Id);
+            await LoadAsync();
+        }
+
         [ObservableProperty]
         private ObservableCollection<Family> _families = new ObservableCollection<Family>();
 
