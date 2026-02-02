@@ -6,8 +6,6 @@
     xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:local="clr-namespace:AlAinRamadan.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
     x:ClassModifier="internal"
     mc:Ignorable="d">
 
@@ -65,6 +63,7 @@
             CornerRadius="5">
 
             <DataGrid
+                d:ItemsSource="{d:SampleData}"
                 hc:DataGridAttach.ShowRowNumber="True"
                 AutoGenerateColumns="False"
                 GridLinesVisibility="Vertical"
