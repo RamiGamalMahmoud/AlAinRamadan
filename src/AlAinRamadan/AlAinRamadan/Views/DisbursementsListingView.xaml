@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:local="clr-namespace:AlAinRamadan.Views"
+    xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:Background="White"
     d:DesignHeight="450"
@@ -261,6 +262,19 @@
                                     Width="100"
                                     DisplayMemberBinding="{Binding CardNumber}"
                                     Header="رقم البطاقة" />
+
+                                <GridViewColumn DisplayMemberBinding="{Binding Notes}" Header="ملاحظات" />
+                                <GridViewColumn Header="اشعار">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <materialIcons:MaterialIcon
+                                                Height="20"
+                                                Foreground="Red"
+                                                Kind="Notifications"
+                                                Visibility="{Binding HasNotice, Converter={StaticResource InvertBoolToVis}}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
