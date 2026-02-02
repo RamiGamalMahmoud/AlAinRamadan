@@ -16,7 +16,7 @@ namespace AlAinRamadan.Data.ModelsConfigurations
                 .WithMany()
                 .HasForeignKey(x => x.FamilyId)
                 .IsRequired()
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
