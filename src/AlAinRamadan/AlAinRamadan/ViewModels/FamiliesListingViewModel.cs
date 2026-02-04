@@ -1,7 +1,6 @@
 ﻿using AlAinRamadan.Core.Abstraction.Repositories;
 using AlAinRamadan.Core.Abstraction.ViewModels;
 using AlAinRamadan.Core.Models;
-using System.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MediatR;

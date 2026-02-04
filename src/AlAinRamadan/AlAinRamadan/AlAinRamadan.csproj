@@ -14,6 +14,7 @@
 		<None Remove="Resources\Reports\DisbursementTicket.rdlc" />
 		<None Remove="Resources\Reports\FamilyBarcode.rdlc" />
 		<None Remove="Resources\Sounds\mixkit-elevator-tone-2863.wav" />
+		<None Remove="Resources\Sounds\mixkit-elevator-tone.mp3" />
 		<None Remove="Resources\Sounds\mixkit-software-interface-back-2575.wav" />
 	</ItemGroup>
 
@@ -26,6 +27,9 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Resources\Sounds\mixkit-elevator-tone-2863.wav">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\Sounds\mixkit-elevator-tone.mp3">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Resources\Sounds\mixkit-software-interface-back-2575.wav">

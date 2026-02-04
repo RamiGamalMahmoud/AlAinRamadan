@@ -15,4 +15,8 @@
 		</AssemblyAttribute>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Commands\Families\" />
+	</ItemGroup>
+
 </Project>

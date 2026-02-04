@@ -17,7 +17,7 @@ namespace AlAinRamadan.Data.Repositories
         {
             using (AppDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
-                Family family = new Family(dTO.CardNumber, dTO.Name, dTO.Notes);
+                Family family = new Family(dTO.CardNumber, dTO.Name, dTO.ApplicantName, dTO.Notes);
                 dbContext.Families.Add(family);
                 try
                 {
@@ -54,6 +54,7 @@ namespace AlAinRamadan.Data.Repositories
                 Family storedFamily = await dbContext.Families.FindAsync(dTO.Id);
                 storedFamily.CardNumber = dTO.CardNumber;
                 storedFamily.Name = dTO.Name;
+                storedFamily.ApplicantName = dTO.ApplicantName;
                 storedFamily.Notes = dTO.Notes;
 
                 try

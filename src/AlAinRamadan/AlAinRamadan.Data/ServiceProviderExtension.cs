@@ -1,5 +1,6 @@
 ﻿using AlAinRamadan.Core.Abstraction;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace AlAinRamadan.Data
 {
@@ -7,6 +8,7 @@ namespace AlAinRamadan.Data
     {
         public static IServiceCollection ConfigureData(this IServiceCollection services)
         {
+            services.AddMediatR((cfg) => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
             services.AddSingleton<IConnectionStringFactory>(s =>
             {
                 IDirectoriesService directoriesService = s.GetRequiredService<IDirectoriesService>();

@@ -1,4 +1,6 @@
 ﻿using AlAinRamadan.Data;
+using CommunityToolkit.Mvvm.Messaging;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -8,6 +10,7 @@ namespace AlAinRamadan
     {
         public static IServiceCollection ConfigureServices(this IServiceCollection services)
         {
+            services.AddSingleton<IMessenger>(WeakReferenceMessenger.Default);
             services.AddSingleton<Core.Abstraction.IConnectionStringFactory>(s =>
             {
                 Core.Abstraction.IDirectoriesService directoriesService = s.GetRequiredService<Core.Abstraction.IDirectoriesService>();
@@ -34,7 +37,8 @@ namespace AlAinRamadan
             {
                 Core.Abstraction.Repositories.IFamiliesRepository familiesRepository = s.GetRequiredService<Core.Abstraction.Repositories.IFamiliesRepository>();
                 Core.Abstraction.Contexts.IFamilyContext context = s.GetRequiredService<Core.Abstraction.Contexts.IFamilyContext>();
-                return new ViewModels.UpdateFamilyViewModel(context.GetCurrentFamily(), familiesRepository);
+                IMediator mediator = s.GetRequiredService<IMediator>();
+                return new ViewModels.UpdateFamilyViewModel(context.GetCurrentFamily(), familiesRepository, mediator);
             });
             services.AddTransient<Core.Abstraction.ViewModels.IDeletedFamiliesViewModel, ViewModels.DeletedFamiliesViewModel>();
             services.AddTransient<Core.Abstraction.Views.IDeletedFamiliesView, Views.DeletedFamiliesView>();

@@ -9,10 +9,10 @@ namespace AlAinRamadan.Tests.Data
         {
             Add(new List<FamilyDTO>
         {
-            new FamilyDTO(0, "1", "family 1", ""),
-            new FamilyDTO(0, "2", "family 2", ""),
-            new FamilyDTO(0, "3", "family 3", ""),
-            new FamilyDTO(0, "4", "family 4", ""),
+            new FamilyDTO(0, "1", "family 1", "Applicant Name", ""),
+            new FamilyDTO(0, "2", "family 2", "Applicant Name", ""),
+            new FamilyDTO(0, "3", "family 3", "Applicant Name", ""),
+            new FamilyDTO(0, "4", "family 4", "Applicant Name", ""),
         });
         }
     }

@@ -3,22 +3,28 @@ using AlAinRamadan.Core.Abstraction.ViewModels;
 using AlAinRamadan.Core.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 
 namespace AlAinRamadan.ViewModels
 {
     internal partial class DisbursementsListingViewModel : ObservableObject, IDisbursementsListingViewModel
     {
-        public DisbursementsListingViewModel(IMediator mediator, IDisbursementsRepository disbursementsRepository, IFamiliesRepository familiesRepository)
+        private MediaPlayer _mediaPlayer = new MediaPlayer();
+        public DisbursementsListingViewModel(IMediator mediator, IDisbursementsRepository disbursementsRepository, IFamiliesRepository familiesRepository, IMessenger messenger)
         {
             _mediator = mediator;
             _disbursementsRepository = disbursementsRepository;
             _familiesRepository = familiesRepository;
+            _messenger = messenger;
+            _mediaPlayer.Open(new System.Uri("Resources/Sounds/mixkit-elevator-tone.mp3", System.UriKind.Relative));
         }
 
         public async Task LoadAsync()
@@ -52,8 +58,15 @@ namespace AlAinRamadan.ViewModels
         async partial void OnFamilyChanged(Family oldValue, Family newValue)
         {
             _disbursements.Clear();
+            if (newValue is not null && newValue.HasNotice is true)
+            {
+                _mediaPlayer.Stop();
+                _mediaPlayer.Play();
+                _messenger.Send(new Core.Messages.Common.ShowNotificationMessage(new Core.ErrorNotification("عائلة لديها جرس")));
+            }
+
             LastDisbursement = null;
-            if(InputType == InputType.Family && newValue is not null)
+            if (InputType == InputType.Family && newValue is not null)
             {
                 CardNumber = newValue.CardNumber;
                 FamilyId = newValue.Id.ToString();
@@ -77,6 +90,14 @@ namespace AlAinRamadan.ViewModels
         [RelayCommand(CanExecute = nameof(CanPrintTicket))]
         private async Task DirectPrintTicket()
         {
+            if (Family.HasNotice is true)
+            {
+                MessageBoxResult result = MessageBox.Show("هذه العائلة لديها جرس, هل تريد الاستمرار ؟", "تأكيد الطباعة", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                if (result == MessageBoxResult.No)
+                {
+                    return;
+                }
+            }
             int familyId = int.Parse(FamilyId);
             Disbursement created = await _disbursementsRepository.CreateAsync(new Disbursement(familyId, TicketNumber, DateTime.Now, Notes));
 
@@ -90,6 +111,7 @@ namespace AlAinRamadan.ViewModels
             }
 
             await _mediator.Send(new Core.Commands.Common.DirectPrintCommand("DisbursementTicket.rdlc", Properties.Settings.Default.RecipePrinter, false, TicketParameters(created)));
+            _messenger.Send(new Core.Messages.Common.ShowNotificationMessage(new Core.SuccessNotification("تم تسجيل صرف")));
         }
 
         [RelayCommand]
@@ -155,5 +177,6 @@ namespace AlAinRamadan.ViewModels
         private readonly IMediator _mediator;
         private readonly IDisbursementsRepository _disbursementsRepository;
         private readonly IFamiliesRepository _familiesRepository;
+        private readonly IMessenger _messenger;
     }
 }

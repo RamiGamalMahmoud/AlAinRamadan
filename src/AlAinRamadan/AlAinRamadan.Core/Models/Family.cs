@@ -7,10 +7,11 @@ namespace AlAinRamadan.Core.Models
     {
         private Family() { }
 
-        public Family(string cardNumber, string name, string notes)
+        public Family(string cardNumber, string name, string applicantName, string notes)
         {
             CardNumber = cardNumber;
             Name = name;
+            ApplicantName = applicantName;
             Notes = notes;
         }
 
@@ -28,5 +29,8 @@ namespace AlAinRamadan.Core.Models
 
         [ObservableProperty]
         private bool? _hasNotice;
+
+        [ObservableProperty]
+        private string _applicantName;
     }
 }

@@ -15,6 +15,7 @@ namespace AlAinRamadan.Data.ModelsConfigurations
 
             builder.HasIndex(f => f.CardNumber).IsUnique();
             builder.Property(f => f.Notes).IsRequired(false);
+            builder.Property(f => f.ApplicantName).HasColumnType("nvarchar(100)");
         }
     }
 }
